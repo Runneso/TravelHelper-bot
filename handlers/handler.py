@@ -1,5 +1,9 @@
 from datetime import datetime, timedelta
 from math import ceil
+from typing import List, Tuple
+
+from PIL import Image
+from io import BytesIO
 
 from aiogram import Router
 from aiogram.types import *
@@ -13,28 +17,44 @@ from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 
 from loguru import logger
+from staticmap import StaticMap, Line, CircleMarker
 
 from database import CRUD, Users, Journeys
+from services import TomTomAPI, OpenWeatherAPI
 from strings import *
 from states import FSMStart, FSMCreateJourney, FSMMyJourneys
-from keyboards import keyboard_location, keyboard_transport_type, keyboard_switch
-from config import get_constants
+from keyboards import keyboard_location, keyboard_transport_type, keyboard_switch, keyboard_resolution
+from config import get_constants, Constants, get_settings, Settings
 
-locator = Nominatim(user_agent="GetLoc")
+locator: Nominatim = Nominatim(user_agent="GetLoc")
+tom_tom_API: TomTomAPI = TomTomAPI()
+open_weather_API: OpenWeatherAPI = OpenWeatherAPI()
 router: Router = Router()
-db = CRUD()
-constants = get_constants()
+db: CRUD = CRUD()
+constants: Constants = get_constants()
+settings: Settings = get_settings()
 
 
-def get_repr_date(date: datetime):
+def get_lan_lon(node: str) -> tuple:
+    location = locator.geocode(node)
+    return location.latitude, location.longitude
+
+
+def get_coordinates(nodes: list[str]) -> list[tuple]:
+    result = [tuple() for _ in range(len(nodes))]
+    for index in range(len(nodes)):
+        result[index] = (locator.geocode(nodes[index]).latitude, locator.geocode(nodes[index]).longitude)
+    return result
+
+
+def get_repr_date(date: datetime) -> str:
     return datetime.strftime(date, constants.TIME_PATTERN)
 
 
-def clc_delta(node1: str, node2: str, transport_type: str) -> float:
+def clc_delta(node1: str, node2: str, transport_type: str) -> int:
     location1, location2 = locator.geocode(node1), locator.geocode(node2)
     coordinates1 = (location1.latitude, location1.longitude)
     coordinates2 = (location2.latitude, location2.longitude)
-    print(coordinates1, coordinates2)
     distance = geodesic(coordinates1, coordinates2).kilometers
     return ceil(distance / constants.TRANSPORTS[transport_type])
 
@@ -58,6 +78,7 @@ def clc_nodes(node_data: Journeys, sessionmaker: sessionmaker[Session]) -> str:
 def get_data(node_data: Journeys, sessionmaker: sessionmaker[Session]) -> str:
     answer = (f"ID: {node_data.journey_id}\n"
               f"Название: {node_data.journey_name}\n"
+              f"Автор: {node_data.journey_author}\n"
               f"Тип транспорта: {node_data.transport_type}\n"
               f"Участники путешествия: {', '.join([db.get_user_by_id(sessionmaker, user_id).login + f' (ID: {user_id})' for user_id in node_data.journey_participants])}\n")
     nodes = clc_nodes(node_data, sessionmaker)
@@ -102,6 +123,42 @@ async def create_journey_command(message: Message, state: FSMContext):
     await state.set_state(FSMCreateJourney.get_name)
 
 
+@router.message(Command(commands=["delete_journey"]), StateFilter(default_state))
+async def create_journey_command(message: Message, state: FSMContext,
+                                 sessionmaker: sessionmaker[Session]):
+    text = message.text.split()
+    if len(text) != 2:
+        await message.answer("Введи команду в формате /delete_journey {ID}.")
+        return
+    journey_id = int(text[1])
+    journey = db.get_journey_by_id(sessionmaker, journey_id)
+    if journey is None:
+        await message.answer("Данное путешествие не найдено.")
+    elif journey.journey_author != str(message.from_user.id):
+        await message.answer("Вы не являетесь автором мероприятия.")
+    else:
+        db.remove_journey(sessionmaker, journey)
+        await message.answer("Путешествие успешно удалено.")
+
+
+@router.message(Command(commands=["journey"]), StateFilter(default_state))
+async def create_journey_command(message: Message, state: FSMContext,
+                                 sessionmaker: sessionmaker[Session]):
+    text = message.text.split()
+    if len(text) != 2:
+        await message.answer("Введи команду в формате /journey {ID}.")
+        return
+    journey_id = int(text[1])
+    journey = db.get_journey_by_id(sessionmaker, journey_id)
+    if journey is None:
+        await message.answer("Данное путешествие не найдено.")
+    elif str(message.from_user.id) not in journey.journey_participants:
+        await message.answer("Вы не являетесь участником этого мероприятия.")
+    else:
+        await message.answer(get_data(journey, sessionmaker))
+
+
+@router.message(Command(commands=["my_journeys"]), StateFilter(FSMMyJourneys.my_journeys))
 @router.message(Command(commands=["my_journeys"]), StateFilter(default_state))
 async def my_journeys(message: Message, state: FSMContext,
                       sessionmaker: sessionmaker[Session]):
@@ -115,39 +172,185 @@ async def my_journeys(message: Message, state: FSMContext,
         await message.answer("У вас нет активных путешествий.")
 
 
+@router.callback_query(StateFilter(default_state))
+async def FSMMyJourneysError(callback: CallbackQuery, state: FSMContext,
+                             sessionmaker: sessionmaker[Session]):
+    await callback.message.delete()
+    await state.clear()
+
+
 @router.callback_query(StateFilter(FSMMyJourneys.my_journeys))
 async def FSMMyJourneys1(callback: CallbackQuery, state: FSMContext,
                          sessionmaker: sessionmaker[Session]):
     user_id = callback.from_user.id
     journeys = db.get_my_journeys(sessionmaker, str(user_id))
+    index = (await state.get_data())["index"]
     n = len(journeys)
-    if callback.data == "left":
-        index = (await state.get_data())["index"]
-        if index == 0:
-            await callback.answer("Это самое первое путешествие!")
-        else:
-            text = get_data(journeys[index - 1], sessionmaker)
-            await state.update_data(index=(index - 1))
-            await callback.message.edit_text(text, reply_markup=keyboard_switch)
+    match callback.data:
+        case "left":
+            if index == 0:
+                await callback.answer("Это самое первое путешествие!")
+            else:
+                text = get_data(journeys[index - 1], sessionmaker)
+                await state.update_data(index=(index - 1))
+                await callback.message.edit_text(text, reply_markup=keyboard_switch)
+            await state.set_state(FSMMyJourneys.my_journeys)
+            await callback.answer()
+        case "right":
+            if index == n - 1:
+                await callback.answer("Это самое последнее путешествие!")
+            else:
+                text = get_data(journeys[index + 1], sessionmaker)
+                await state.update_data(index=(index + 1))
+                await callback.message.edit_text(text, reply_markup=keyboard_switch)
+            await state.set_state(FSMMyJourneys.my_journeys)
+            await callback.answer()
+        case "add_friend":
+            if str(user_id) != journeys[index].journey_author:
+                await callback.message.answer("Вы не являетесь автором путешествия!")
+                await state.set_state(FSMMyJourneys.my_journeys)
+            else:
+                await callback.message.answer("Укажи ID друга в системе.")
+                await state.set_state(FSMMyJourneys.add_friend)
+            await callback.answer()
+        case "remove_friend":
+            if str(user_id) != journeys[index].journey_author:
+                await callback.message.answer("Вы не являетесь автором путешествия!")
+                await state.set_state(FSMMyJourneys.my_journeys)
+            else:
+                await callback.message.answer("Укажи ID друга в системе.")
+                await state.set_state(FSMMyJourneys.remove_friend)
+            await callback.answer()
+        case "route_image":
+            await callback.message.answer("Выберите формат вашего устройства.", reply_markup=keyboard_resolution)
+            await state.set_state(FSMMyJourneys.get_image)
+            await callback.answer()
+        case "weather":
+            await callback.message.answer("Пожалуйста, подождите.")
+            nodes = clc_nodes(journeys[index], sessionmaker).split("\n")
+            for index in range(0, len(nodes), 2):
+                curr = nodes[index]
+                if index == 0:
+                    curr = curr[8:]
+                    curr = curr.split(":", 1)
+                else:
+                    curr = curr.replace(" до ", "*", 1)
+                    curr = curr.replace(": с ", "*", 1)
+                    curr = curr.split("*", 2)
+                node = curr[0]
+                dates = [datetime.strptime(curr[pos].strip(), constants.TIME_PATTERN) for pos in range(1, len(curr))]
+                day, night = -float("inf"), float("inf")
+                lat, lon = get_lan_lon(node)
+                forecast = await open_weather_API.get_forecast(lat, lon)
+                for dt, temp in forecast:
+                    if any(dt.date() == d.date() for d in dates) and (
+                            constants.six_hour_am <= dt.time() <= constants.eight_hour_pm):
+                        day = max(day, temp)
+                    elif any(dt.date() == d.date() for d in dates):
+                        night = min(night, temp)
+                if day == -float("inf"):
+                    nodes[index] += "\nДневная температура: Нет данных"
+                else:
+                    nodes[index] += f"\nДневная температура: {round(day, 1)} °C"
+
+                if night == float("inf"):
+                    nodes[index] += "\nНочная температура: Нет данных"
+                else:
+                    nodes[index] += f"\nНочная температура: {round(night, 1)} °C"
+
+            await callback.message.answer("\n".join(nodes))
+            await callback.answer()
+            await state.set_state(FSMMyJourneys.my_journeys)
+
+        case "cancel":
+            await callback.message.delete()
+            await state.clear()
+
+
+@router.message(StateFilter(FSMMyJourneys.get_image))
+async def FSMMyJourneys_get_image(message: Message, state: FSMContext, sessionmaker: sessionmaker[Session]):
+    await message.answer("Пожалуйста, подождите.")
+    resolution = (800, 800) if message.text == "Телефон" else (1920, 1080)
+    journeys = db.get_my_journeys(sessionmaker, str(message.from_user.id))
+    index = (await state.get_data())["index"]
+    journey_data = journeys[index]
+    user = db.get_user_by_id(sessionmaker, str(message.from_user.id))
+    nodes = [f"{user.city}, {user.country}"] + journey_data.journey_path
+    nodes = get_coordinates(nodes)
+    map_image = StaticMap(*resolution, url_template="https://tile.openstreetmap.org/{z}/{x}/{y}.png")
+    for index in range(1, len(nodes)):
+        lan1, log1 = nodes[index - 1][::-1]
+        lan2, log2 = nodes[index][::-1]
+        map_image.add_marker(CircleMarker(nodes[index - 1][::-1], "red", 20))
+        map_image.add_marker(CircleMarker(nodes[index][::-1], "red", 20))
+        transport_type = "car" if journey_data.transport_type != "Пешком" else "pedestrian"
+        route = (await tom_tom_API.get_route(lan1, log1, lan2, log2, transport_type))[::10]
+        for pos in range(1, len(route)):
+            lan1, log1 = route[pos - 1]["longitude"], route[pos - 1]["latitude"]
+            lan2, log2 = route[pos]["longitude"], route[pos]["latitude"]
+            map_image.add_line(Line([(lan1, log1), (lan2, log2)], "green", width=5))
+    image = map_image.render()
+    bio = BytesIO()
+    image.save(bio, "PNG")
+    photo = BufferedInputFile(file=bio.getvalue(), filename="path.png")
+    caption = get_data(journey_data, sessionmaker)
+    await message.answer_photo(photo=photo, caption=caption)
+    await state.set_state(FSMMyJourneys.my_journeys)
+
+
+@router.message(StateFilter(FSMMyJourneys.add_friend))
+async def FSMMyJourneys_add_friend(message: Message, state: FSMContext, sessionmaker: sessionmaker[Session]):
+    user_id = message.from_user.id
+    friend_id = message.text
+    friend = db.get_user_by_id(sessionmaker, str(friend_id))
+    journeys = db.get_my_journeys(sessionmaker, str(user_id))
+    index = (await state.get_data())["index"]
+    if friend is None:
+        await message.answer("Такой пользователь не найден в системе!")
+        await message.delete()
         await state.set_state(FSMMyJourneys.my_journeys)
-    elif callback.data == "right":
-        index = (await state.get_data())["index"]
-        if index == n - 1:
-            await callback.answer("Это самое последнее путешествие!")
-        else:
-            text = get_data(journeys[index + 1], sessionmaker)
-            await state.update_data(index=(index + 1))
-            await callback.message.edit_text(text, reply_markup=keyboard_switch)
+    elif friend_id in journeys[index].journey_participants:
+        await message.answer("Пользователь уже участвует в мероприятие!")
+        await message.delete()
         await state.set_state(FSMMyJourneys.my_journeys)
     else:
-        await callback.message.delete()
-        await state.clear()
+        await message.answer("Друг успешно добавлен!")
+        await message.delete()
+        db.add_friend_in_journey(sessionmaker, friend_id, journeys[index].journey_id)
+        await state.set_state(FSMMyJourneys.my_journeys)
+
+
+@router.message(StateFilter(FSMMyJourneys.remove_friend))
+async def FSMMyJourneys_remove_friend(message: Message, state: FSMContext, sessionmaker: sessionmaker[Session]):
+    user_id = message.from_user.id
+    friend_id = message.text
+    friend = db.get_user_by_id(sessionmaker, str(friend_id))
+    journeys = db.get_my_journeys(sessionmaker, str(user_id))
+    index = (await state.get_data())["index"]
+    if str(user_id) == friend_id:
+        await message.answer("Нельзя удалить автора, нужно полностью удалить путешествие.")
+        await message.delete()
+        await state.set_state(FSMMyJourneys.my_journeys)
+    elif friend is None:
+        await message.answer("Такой пользователь не найден в системе!")
+        await message.delete()
+        await state.set_state(FSMMyJourneys.my_journeys)
+    elif friend_id not in journeys[index].journey_participants:
+        await message.answer("Пользователь не участвует в мероприятие!")
+        await message.delete()
+        await state.set_state(FSMMyJourneys.my_journeys)
+    else:
+        await message.answer("Друг успешно удалён!")
+        await message.delete()
+        db.remove_friend_from_journey(sessionmaker, friend_id, journeys[index].journey_id)
+        await state.set_state(FSMMyJourneys.my_journeys)
 
 
 @router.message(StateFilter(FSMCreateJourney.get_name))
 async def FSMCreateJourney1(message: Message, state: FSMContext):
     await state.update_data(journey_name=message.text)
-    await message.answer("Теперь укажи тип транспорта.", reply_markup=keyboard_transport_type)
+    await message.answer("Теперь укажи тип транспорта. (От этого будет зависеть время в пути)",
+                         reply_markup=keyboard_transport_type)
     await state.set_state(FSMCreateJourney.get_transport_type)
 
 
@@ -175,7 +378,7 @@ async def FSMCreateJourney3(message: Message, state: FSMContext):
     else:
         await state.update_data(journey_datetime_start=date)
         await message.answer("Со временем определились, теперь время определится с длинной поездки.\n"
-                             "Сколько пунктов ты хочешь в процессе путешествия?")
+                             "Сколько пунктов ты хочешь посетить в процессе путешествия?")
         await state.set_state(FSMCreateJourney.get_journey_length)
 
 
@@ -233,10 +436,7 @@ async def FSMCreateJourney6(message: Message, state: FSMContext, sessionmaker: s
             await message.answer(
                 "Путешествие успешно добавлено, чтобы посмотреть свои путешествия используй команду /my_journeys.\n\n"
                 "Чтобы получить доступ к определённому путешествию по ID, используй /journey {ID}.\n\n"
-                "Если захочешь удалить или изменить данные о поездки, используй /delete_journey {ID} и "
-                "/update_journey {ID} соответственно.\n\n"
-                "Чтобы добавить или удалить друга с ID1 в путешествие ID2, используй /append_friend {ID1} {ID2} и "
-                "/delete_friend {ID1} {ID2} соотвественно.")
+                "Если захочешь удалить поездку, используй /delete_journey {ID}\n\n")
             await state.clear()
         else:
             await message.answer("Теперь введи название пункта в формате {название}, {город}, {страна}.\n"

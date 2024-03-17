@@ -19,7 +19,6 @@ async def main() -> None:
 
     bot: Bot = Bot(token=settings.TELEGRAM_TOKEN)
     dp: Dispatcher = Dispatcher(storage=MemoryStorage())
-
     dp.include_router(router)
 
     await dp.start_polling(bot, sessionmaker=get_session_maker())

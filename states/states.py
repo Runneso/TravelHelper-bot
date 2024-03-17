@@ -18,3 +18,6 @@ class FSMCreateJourney(StatesGroup):
 
 class FSMMyJourneys(StatesGroup):
     my_journeys = State()
+    add_friend = State()
+    remove_friend = State()
+    get_image = State()
