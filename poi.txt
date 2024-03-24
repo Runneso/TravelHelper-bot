@@ -1,0 +1,602 @@
+7320 Sports Center
+7374 Stadium
+7315 Restaurant
+9376 Café/Pub
+9663 Health Care Service
+7321 Hospital
+9373 Doctor
+9361 Shop
+9364 Marijuana Dispensary
+7332 Market
+9932 Public Amenity
+7301 Road Traffic Control Center
+7324 Post Office
+7377 College/University
+7369 Open Parking Area
+9937 Club & Association
+7360 Campground
+7304 Vacation Rental
+9902 Amusement Park
+7303 Residential Accommodations
+7335 Agricultural Business
+7383 Airport
+9352 Company
+9379 Nightlife
+7310 Repair Shop
+7314 Hotel/Motel
+7372 School
+9910 Automotive Dealer
+9927 Zoo, Arboretum & Botanical Garden
+7342 Movie Theater
+7318 Theater
+9362 Park & Recreation Area
+7339 Place of Worship
+7376 Tourist Attraction
+7302 Trails
+7380 Railroad Station
+9942 Public Transportation Stop
+9160 Exchange
+7347 Marina
+7359 Weigh Station
+9155 Car Wash
+9378 Leisure Center
+7389 Access Gateway
+8099 Geographic Feature
+7380004 Urban Station
+7302003 Adventure Vehicle Trail
+9352003 Advertising Company
+7315081 Afghan Restaurant
+7315002 African Restaurant
+9361073 Agricultural Supplies
+9352012 Agricultural Technology
+7383005 Airfield
+9352034 Airline Company
+7389002 Airline Access
+7315082 Algerian Restaurant
+9663005 Ambulance Unit
+7315003 American Restaurant
+7318007 Amphitheater
+9902002 Amusement Arcade
+9902003 Amusement Park
+9902004 Amusement Place
+9361048 Animal Services
+9352045 Animal Shelter
+9361049 Antique/Art Shop
+7304006 Apartment Rental
+9927004 Aquatic Zoo
+7315083 Arabian Restaurant
+9927002 Arboreta & Botanical Gardens
+7376012 Arch
+7315084 Argentinian Restaurant
+7315085 Armenian Restaurant
+7372012 Art School
+7339007 Ashram
+7315062 Asian Restaurant
+7374002 Athletics Track
+9910009 ATV Dealer
+7315086 Australian Restaurant
+7315004 Austrian Restaurant
+9352013 Automobile Company
+9352041 Automobile Manufacturing
+9361058 Bags & Leatherwear
+7315146 Banquet Rooms
+9379004 Bar
+7315005 Barbecue Restaurant
+7374009 Baseball Park
+7374012 Basketball Arena
+7315087 Basque Restaurant
+9362002 Battlefield
+8099016 Bay
+9937002 Beach Club
+9361067 Beauty Salon
+9361050 Beauty Supplies
+7314002 B&B/Guest House
+7315006 Belgian Restaurant
+9361072 Betting Station
+7315007 Bistro
+9663004 Blood Bank
+9910004 Boat Dealer
+9362032 Boat Launching Ramp
+9361083 Boating Equipment & Accessories
+7310002 Bodyshop
+7315088 Bolivian Restaurant
+9361002 Book Shop
+7315089 Bosnian Restaurant
+9378002 Bowling Center
+7315072 Brazilian Restaurant
+7376010 Bridge
+9352035 Bridge & Tunnel Operations
+7315008 British Restaurant
+7315142 Buffet Restaurant
+7376002 Building
+7315090 Bulgarian Restaurant
+7304004 Bungalow Rental
+7315091 Burmese Restaurant
+9910008 Bus Dealer
+9352025 Bus Charter Company
+9352027 Bus Lines
+9942002 Bus Stop
+9352039 Business Services
+7318006 Cabaret Theater
+7314007 Cabins & Lodges
+9352040 Cable & Telephone Company
+9376002 Café
+7315147 Cafeteria
+7315009 Californian Restaurant
+7315092 Cambodian Restaurant
+7315010 Canadian Restaurant
+8099020 Cape
+9910002 Car Dealer
+7310003 Car Glass Replacement Shop
+7360003 Caravan Site
+7315011 Caribbean Restaurant
+9352043 Catering Services
+8099003 Cave
+9361003 CDs, DVD & Videos
+9361044 Video Rental Shop
+9362003 Cemetery
+7304005 Chalet Rental
+9352014 Chemical Company
+7315070 Chicken Restaurant
+7372003 Child Care Facility
+7315093 Chilean Restaurant
+7315012 Chinese Restaurant
+9361082 Christmas/Holiday Shop
+7339002 Church
+9352029 Cleaning Services
+9361004 Children's Clothes
+9361005 Footwear & Shoe Repairs
+9361006 Clothing Shop
+9361007 Men's Clothing
+9361079 Specialty Clothing Shop
+9361008 Women's Clothing
+9942005 Coach Stop
+9379006 Cocktail Bar
+9376006 Coffee Shop
+7377002 College/University
+7315094 Colombian Restaurant
+9379009 Comedy Club
+9352004 Computer & Data Services
+9352005 Software Company
+7318002 Concert Hall
+7303006 Condominium Complex
+9352032 Construction Company
+9361042 Construction Material & Equipment
+9361009 Convenience Store
+7315095 Corsican Restaurant
+7304002 Cottage Rental
+8099017 Cove
+7315063 Creole Restaurant
+7315013 Crêperie
+7374003 Cricket Ground
+7315096 Cuban Restaurant
+7372015 Culinary School
+7315097 Cypriot Restaurant
+7315068 Czech Restaurant
+7376007 Dam
+9378003 Dance Studio & School
+7315098 Danish Restaurant
+9361060 Delicatessen
+7318008 Dinner Theater
+9379002 Disco Club
+9352006 Diversified Financials
+7315099 Dominican Restaurant
+7315057 Dongbei Restaurant
+7315079 Doughnut Restaurant
+9361076 Drive Through Bottle Shop
+7342003 Drive-In Movies
+7372016 Driving School
+9361051 Drug Store
+9361010 Dry Cleaner
+8099005 Dune
+7315014 Dutch Restaurant
+7315100 Egyptian Restaurant
+9361052 Electrical Appliances Shop
+9361011 Cameras & Photography
+9361012 Computer & Computer Supplies
+9361013 Consumer Electronics
+9361014 Office Equipment
+7315101 English Restaurant
+9352038 Equipment Rental
+7315132 Erotic Restaurant
+7315102 Ethiopian Restaurant
+7315133 Exotic Restaurant
+9361016 Factory Outlet
+9362017 Fairground
+7335004 Farm
+7332004 Farmers Market
+7315015 Fast Food
+7315016 Philippine Restaurant
+7315104 Finnish Restaurant
+9362016 Fishing & Hunting Area
+7320002 Fitness Club & Center
+7303003 Flats/Apartment Complex
+9361017 Florists
+9378004 Flying Club
+7315134 Fondue Restaurant
+9361018 Bakery
+9361019 Butcher
+9361020 Fishmonger
+9361021 Food Market
+9361022 Greengrocer
+9361023 Grocery Store
+9361024 Other Food Shops
+9361025 Wine & Spirits
+7374010 Football Stadium
+9362015 Forest Area
+7315017 French Restaurant
+9352036 Funeral Service & Mortuaries
+9361054 Furniture/Home Furnishings
+7315071 Fusion Restaurant
+7324002 Post Office
+7310004 Car Repair and Service
+9373002 General Practitioner
+7315018 German Restaurant
+9361026 Gifts, Cards, Novelties & Souvenirs
+9361055 Glassware/Ceramic Shop
+9160003 Gold Exchange
+7315019 Greek Restaurant
+7315020 Grill Restaurant
+7315054 Guangdong Restaurant
+7339006 Gurudwara
+9361027 Hairdresser
+7315069 Hamburger Restaurant
+8099018 Harbor
+9361069 Hardware Store
+7315021 Hawaiian Restaurant
+7372006 High School
+7302004 Hiking Trail
+8099025 Hill
+9362004 Historic Site
+9362005 Historical Park
+9361053 Hobby Shop
+9937003 Hockey Club
+9352044 Home Appliance Repair
+7374005 Horse Racing Track
+7320003 Horse Riding Center
+7335002 Horticulture
+7321005 Hospital for Women and Children
+7321004 Hospital of Chinese Medicine
+7314004 Hostel
+7315058 Hot Pot Restaurant
+7314003 Hotel
+9361028 Carpet/Floor Coverings
+9361029 Curtains/Textiles
+9361030 Do-It-Yourself Centers
+9361031 House & Garden: Furniture & Fittings
+9361032 Garden Centers & Services
+9361080 Glass & Windows Store
+9361033 Kitchens & Bathrooms
+9361034 Lighting Shops
+9361035 Painting & Decorating
+7315052 Hunan Restaurant
+7315022 Hungarian Restaurant
+7315078 Ice Cream Parlor
+7374008 Ice Hockey Arena
+9352042 Import/Export and Distribution
+7315023 Indian Restaurant
+7315024 Indonesian Restaurant
+7332002 Informal Market
+9352007 Insurance Company
+7315073 International Restaurant
+7380002 International Railroad Station
+9376004 Internet Café
+9352037 Investment Advisor
+7315105 Iranian Restaurant
+7315065 Irish Restaurant
+8099022 Island
+7315106 Israeli Restaurant
+7315025 Italian Restaurant
+7315066 Jamaican Restaurant
+7315026 Japanese Restaurant
+9379008 Jazz Club
+9361036 Jewelry, Clocks & Watches
+7315027 Jewish Restaurant
+7377003 Junior College/Community College
+9379010 Karaoke Club
+7315028 Korean Restaurant
+7315067 Kosher Restaurant
+8099019 Lagoon
+9362006 Lakeshore
+7372010 Language School
+7315029 Latin American Restaurant
+9361045 Laundry
+7315030 Lebanese Restaurant
+9352023 Legal Services
+7324003 Local Post Office
+9361056 Local Specialities Shop
+8099027 Locale
+9361071 Lottery Shop
+7315107 Luxembourgian Restaurant
+7315135 Macrobiotic Restaurant
+7315108 Maghrib Restaurant
+9352008 Delivery Service
+7315031 Maltese Restaurant
+9352011 Manufacturing Company
+7347002 Marina
+9361065 Marine Electronic Equipment
+8099023 Marsh
+7315109 Mauritian Restaurant
+7376011 Mausoleum/Grave
+9352016 Mechanical Engineering
+9361043 Medical Supplies & Equipment
+7315032 Mediterranean Restaurant
+9362007 Memorial
+7380005 Subway Station
+7315033 Mexican Restaurant
+9376007 Microbrewery
+7315034 Middle Eastern Restaurant
+7372014 Middle School
+7383004 Military Airport
+8099021 Mineral/Hot Springs
+9352031 Mining Company
+9361075 Mobile Phone Shop
+7315110 Mongolian Restaurant
+7376003 Monument
+7315074 Moroccan Restaurant
+7339003 Mosque
+7314006 Motel
+7374011 Motor Racing Stadium
+9910003 Motorcycle Dealer
+7310008 Motorcycle Repair
+7302002 Mountain Bike Trail
+8099002 Mountain Peak
+9352033 Moving & Storage Company
+7374006 Multi-Purpose Stadium
+7318003 Music Center
+9361059 Music Instruments Store
+7315136 Mussels Restaurant
+9361068 Nail Salon
+7380003 National Railroad Station
+9362030 Natural Recreation Attraction
+7315111 Nepalese Restaurant
+7374014 Netball Stadium
+9361037 Newsagents & Tobacconists
+7315112 Norwegian Restaurant
+8099011 Oasis
+7376005 Observatory
+9352021 OEM
+9352030 Oil & Natural Gas
+7318004 Opera House
+9361038 Optician
+7315075 Organic Food Restaurant
+7315035 Oriental Restaurant
+7310005 Other Repair Shops
+9362025 Other Winter Sport
+7339008 Pagoda
+7315127 Pakistani Restaurant
+8099009 Pan
+9362008 Park
+9362009 Parkway
+9932002 Passenger Transport Ticket Office
+9361070 Pawn Shop
+9932003 Pedestrian Subway
+9663003 Personal Care Facility
+9663002 Personal Service
+7315061 Peruvian Restaurant
+9361064 Pet Supplies
+9352018 Pharmaceutical Company
+9361046 Photo Lab/Development
+9361047 Photocopy Shop
+9362033 Picnic Area
+7315036 Pizzeria
+8099007 Plain/Flat
+7376006 Planetarium
+8099008 Plateau
+7315037 Polish Restaurant
+7315129 Polynesian Restaurant
+7315038 Portuguese Restaurant
+7372004 Pre School
+9362010 Preserve
+7335003 Primary Producer
+7372005 Primary School
+7383003 Private Airport
+9379003 Private Club
+7315130 Provençal Restaurant
+9376003 Pub
+7315039 Pub Food
+7332003 Public Market
+7383002 Public Airport
+9932004 Public Call Box
+9352017 Public Health Technology Company
+9352019 Publishing Technologies
+8099026 Quarry
+7374013 Race Track
+7380006 Railroad Siding
+8099015 Rapids
+9352009 Real Estate Company
+9361015 Real Estate Agent
+9362011 Recreation Area
+7360002 Recreational Camping Ground
+9910005 Recreational Vehicle Dealer
+9361057 Recycling Shop
+8099014 Reef
+8099013 Reservoir
+7303004 Residential Estate
+7314005 Resort
+7314008 Rest Camp
+9361063 Retail Outlet
+7303002 Retirement Community
+8099004 Ridge
+8099024 River Crossing
+9932006 Road Rescue
+7315041 Roadside Restaurant
+7302006 Rock Climbing Trail
+8099012 Rocks
+7374007 Rugby Ground
+7315131 Romanian Restaurant
+7315040 Russian Restaurant
+7315143 Salad Bar
+7310006 Car Accessories
+7315042 Sandwich Restaurant
+9378005 Sauna, Solarium & Massage
+9352010 Savings Institution
+7315113 Savoy Restaurant
+7315114 Scandinavian Restaurant
+7372002 School
+7315115 Scottish Restaurant
+7315043 Seafood
+9362013 Seashore
+7389004 Secured Entrance
+9361078 Security Products
+7372007 Senior High School
+9352002 Service Company
+7315053 Shandong Restaurant
+7315055 Shanghai Restaurant
+9361062 Shopping Service
+7315056 Sichuan Restaurant
+7315116 Sicilian Restaurant
+9362026 Ski Resort
+7315117 Slavic Restaurant
+7315080 Slovak Restaurant
+7315139 Snacks Restaurant
+9378006 Snooker, Pool & Billiard
+7374004 Soccer Stadium
+7315064 Soul Food
+7315140 Soup Restaurant
+7315044 Spanish Restaurant
+7321003 Special Hospital
+7372013 Special School
+9373003 Specialist
+9361061 Specialty Foods
+7372011 Sport School
+9361039 Sports Equipment & Clothing
+7320006 Squash Court
+9361074 Stamp Shop
+7389003 Station Access
+7376013 Statue
+7315045 Steak House
+9160002 Stock Exchange
+7315118 Sudanese Restaurant
+7332005 Supermarkets & Hypermarkets
+7315046 Surinamese Restaurant
+7315148 Sushi Restaurant
+7315119 Swedish Restaurant
+7315047 Swiss Restaurant
+7339004 Synagog
+7315120 Syrian Restaurant
+9361077 Tailor Shop
+7315059 Taiwanese Restaurant
+7315145 Takeout Food
+7315076 Tapas Restaurant
+9352022 Tax Services
+9942003 Taxi Stand
+9352026 Taxi, Limousine & Shuttle Service
+9376005 Tea House
+7372009 Technical School
+9352020 Telecommunications
+7339005 Temple
+7315121 Teppanyaki Restaurant
+7315048 Thai Restaurant
+7318005 Theater
+7320005 Thematic Sport Center
+7315122 Tibetan Restaurant
+9932005 Public Toilet
+7376009 Tower
+7303005 Townhouse Complex
+9361040 Toys & Games Shop
+7301002 Traffic Control Department
+9942004 Streetcar Stop
+9352024 Transport Company
+9361041 Travel Agent
+9910006 Truck Dealer
+7310009 Truck Repair and Service
+9155003 Truck Wash
+7315123 Tunisian Restaurant
+7376008 Tunnel
+7315049 Turkish Restaurant
+7310007 Tire Service
+7315124 Uruguayan Restaurant
+8099006 Valley
+9910007 Van Dealer
+9361081 Variety Store
+7315050 Vegetarian Restaurant
+7315125 Venezuelan Restaurant
+7315051 Vietnamese Restaurant
+7304003 Villa Rental
+7372008 Vocational School
+7376014 Water Hole
+9352046 Wedding Services
+7359003 Weigh Scales
+8099010 Well
+7315126 Welsh Restaurant
+7315060 Western Restaurant
+9361066 Wholesale Club
+9362014 Wilderness Area
+9927005 Wildlife Park
+9379007 Wine Bar
+7347003 Yacht Basin
+7315149 Yogurt/Juice Bar
+9927003 Zoo
+9352015 Electronics Company
+9362036 River Scenic Area
+7302005 Horse Riding Trail
+7321002 Hospital
+7376004 Natural Tourist Attraction
+7369002 Open Car Parking Area
+7369003 Open Coach Parking Area
+7369004 Open Truck Parking Area
+9362037 Protected Area
+9364002 Medicinal Marijuana Dispensary
+9364003 Recreational Marijuana Dispensary
+9360 Ice Skating Rink
+9369 Tennis Court
+9911 Golf Course
+9371 Water Sport
+7338 Swimming Pool
+9359 Restaurant Area
+9374 Dentist
+9375 Veterinarian
+7326 Pharmacy
+9956 EmergencyRoom
+7327 Department Store
+7373 Shopping Center
+7392 Fire Station
+9152 Non Governmental Organization
+9154 Prison/Correctional Facility
+7365 Embassy
+9913 Library
+9151 Transport Authority/Vehicle Registration Office
+9153 Welfare Organization
+9389 Native Reservation
+9363 Courthouse
+7322 Police Station
+9150 Primary Resource/Utility
+7367 Government Office
+9388 Military Installation
+9930 Rent-a-Car-Parking
+7317 Museum
+9383 Industrial Building
+7313 Parking Garage
+7316 Tourist Information Office
+9158 Media Facility
+7349 Winery
+7391 Emergency Medical Service
+7341 Casino
+9156 Manufacturing Facility
+9382 Commercial Building
+7319 Cultural Center
+9377 Exhibition & Convention Center
+7312 Rent-a-Car Facility
+7358 Truck Stop
+7305 Adventure Sports Facility
+7395 Rest Area
+9157 Research Facility
+7388 Courier Drop Box
+7311 Gas Station
+7368 Motoring Organization Office
+7397 ATM
+7363 Community Center
+9357 Beach
+9159 Port/Warehouse Facility
+7309 Electric Vehicle Charging Station
+7337 Scenic/Panoramic View
+9900 Entertainment
+7378 Business Park
+7328 Bank
+7308 Helipad
+9955 Checkpoint
+7366 Frontier Crossing
+9935 Mountain Pass
+7375 Toll Gate
+7352 Ferry Terminal
