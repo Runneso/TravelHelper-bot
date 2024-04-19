@@ -1,3 +1,10 @@
 # IDEA trash
 .idea
 venv
+logging.log
+
+# ENV
+.env
+
+# CI trash
+.github
