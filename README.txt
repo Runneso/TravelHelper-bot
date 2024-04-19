@@ -1,0 +1,1 @@
+Python TravelHelper bot (SQLAlchemy + aiogram 3.0.0)
